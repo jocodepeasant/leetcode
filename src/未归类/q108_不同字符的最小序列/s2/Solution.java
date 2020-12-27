@@ -3,7 +3,7 @@ package 未归类.q108_不同字符的最小序列.s2;
 import java.util.LinkedList;
 
 /**
- * 与s1的基本思路一样，区别在于使用cut和visited来分别表示剩下字符数和字符是否选择且未被删除，
+ * 与s1的基本思路一样，与s1不同的是，s1采用位掩码做标志，这里使用cut和visited来分别表示剩下字符数和字符是否选择且未被删除，
  * 将时间复杂度降为O(N)。
  */
 public class Solution {

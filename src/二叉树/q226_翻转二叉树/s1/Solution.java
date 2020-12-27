@@ -1,7 +1,7 @@
 package 二叉树.q226_翻转二叉树.s1;
 
 
-import 二叉树.q226_翻转二叉树.TreeNode;
+import 二叉树.TreeNode;
 
 /**
  * 递归法

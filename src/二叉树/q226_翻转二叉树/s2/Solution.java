@@ -1,6 +1,6 @@
 package 二叉树.q226_翻转二叉树.s2;
 
-import 二叉树.q226_翻转二叉树.TreeNode;
+import 二叉树.TreeNode;
 
 import java.util.LinkedList;
 
