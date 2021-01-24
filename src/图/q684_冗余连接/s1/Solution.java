@@ -6,7 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- *
+ * 使用map保存无向图的连接信息，对每个edges，类似于树的遍历进行遍历，直到：
+ * a、没有下一个未遍历过的连接点，返回false
+ * b、返回到开始节点，返回true
+ * ps：题目要返回最后出现的边，故需要从后开始遍历edges。
  */
 public class Solution {
     public int[] findRedundantConnection(int[][] edges) {
@@ -22,6 +25,7 @@ public class Solution {
             map.get(edges[i][0]).add(edges[i][1]);
             map.get(edges[i][1]).add(edges[i][0]);
         }
+        //找到最后出现的边
         for (int i=edges.length-1;;i--){
             if (helper(edges[i][0],edges[i][1],map,edges[i][0],new HashSet<Integer>())){
                 return edges[i];
@@ -42,7 +46,6 @@ public class Solution {
             for (int i : integers
             ) {
                 if (i == u) continue;
-                ;
                 if (helper(v, i, map, target,set)) {
                     return true;
                 }

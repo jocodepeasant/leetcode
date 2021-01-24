@@ -1,43 +1,45 @@
 package 图.q684_冗余连接.s2;
 
 /**
- * 并查集
+ * 并查集，在遍历edges的过程中构造并查集，如果当前边两个点在并查集中的parent相同，
+ * 表明当这个边加入后会构成有环图，即当前边为构成有环图的最后一条边，返回这条需要删除的边。
  */
-public class Solution {
-    int[] res = new int[2];
-
+class Solution {
     public int[] findRedundantConnection(int[][] edges) {
-        int[] father = new int[edges.length + 1];
-        for (int i = 0; i < father.length; i++) {
-            father[i] = i;
-        }
-        for (int[] edge : edges
-        ) {
-            if (union(father, edge[0], edge[1])) {
-                return res;
+        int len = edges.length;
+        UnionFind unionFind = new UnionFind(len);
+        for (int i = 0; i < len; i++) {
+            //parent相同，返回这条边，否则，继续构造并查集
+            if (unionFind.find(edges[i][0]) != unionFind.find(edges[i][1])) {
+                unionFind.union(edges[i][0], edges[i][1]);
+            } else {
+                return edges[i];
             }
         }
-        return res;
+        return null;
     }
 
-    private int findFather(int[] father, int x) {
-        while (father[x] != x) {
-            father[x] = father[father[x]];
-            x = father[x];
+    class UnionFind {
+        private int[] parent;
+
+        public UnionFind(int k) {
+            parent = new int[k+1];
+            for (int i = 1; i <= k; i++) {
+                parent[i] = i;
+            }
         }
-        return x;
-    }
 
-    private boolean union(int[] father, int u, int v) {
-        int uFather = findFather(father, u);
-        int vFather = findFather(father, v);
-        if (uFather != vFather) {
-            father[uFather] = vFather;
-            return false;
-        } else {
-            res[0] = u;
-            res[1] = v;
-            return true;
+        public int find(int x) {
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }
+
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+            parent[rootX] = rootY;
         }
     }
 }
